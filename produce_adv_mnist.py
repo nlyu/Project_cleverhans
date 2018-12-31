@@ -109,3 +109,6 @@ if printimage is True:
         else:
             io.imsave(directory +"/" + str(name_num) + '.png', pic)
         name_num = name_num + 1
+
+print("STEP 5: SUCESS. see picture at ", directory)
+
