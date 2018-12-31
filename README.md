@@ -9,3 +9,7 @@ For example, in MNIST dataset a normal zero becomes under fgsm attack:
 ![alt text](https://github.com/nlyu/Project_cleverhans/blob/master/source/zero_good.png)
 
 ![alt text](https://github.com/nlyu/Project_cleverhans/blob/master/source/zero_bad.png)
+
+REFERENCE:
+http://jackhaha363.github.io/blog/2017/06/19/label-leaking
+http://jackhaha363.github.io/blog/2017/06/19/label-leaking
