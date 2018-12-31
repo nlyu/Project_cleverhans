@@ -1,6 +1,6 @@
 # Project_cleverhans
 
-This is a cleverhans based research project.
+This is a cleverhans based research project by zzhu and nlyu.
 
 Basically we transfrom normal pictures to malicious pictures.
 
