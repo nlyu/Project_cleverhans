@@ -22,7 +22,7 @@ from skimage import color
 from skimage import io
 from skimage import transform
 
-path = "image_new" #你所希望读的目录, 图片必须目前必须是28 * 28 * 1, rgb 0 ~ 1的黑白图片
+path = "example_image" #你所希望读的目录, 图片必须目前必须是28 * 28 * 1, rgb 0 ~ 1的黑白图片
 NB_EPOCHS = 1
 BATCH_SIZE = 128
 LEARNING_RATE = 0.001
