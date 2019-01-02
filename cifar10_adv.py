@@ -23,7 +23,7 @@ from skimage import color
 from skimage import io
 from skimage import transform
 
-path = "cifar10_image_new" #你所希望读的目录, 图片必须目前必须是28 * 28 * 1, rgb 0 ~ 1的黑白图片
+path = "dataset_adv/cifar10_image" #你所希望读的目录, 图片必须目前必须是28 * 28 * 1, rgb 0 ~ 1的黑白图片
 NB_EPOCHS = 1
 BATCH_SIZE = 128
 LEARNING_RATE = 0.001
@@ -36,7 +36,7 @@ train_end=60000
 test_start=0
 test_end=10000
 fgsm_params = {
-  'eps': 0.3,
+  'eps': 0.3, #可调节参数 |x' - x| <= eps picture difference
   'clip_min': 0.,
   'clip_max': 1.
 }
@@ -50,17 +50,46 @@ rng = np.random.RandomState([2017, 8, 30])
 def evaluate():
     print("end")
 
+def Signs(input):
+    training_file = "./traffic-signs-data/train.p"
+    testing_file = "./traffic-signs-data/test.p"
+
+    with open(training_file, mode='rb') as f:
+        my_train = pickle.load(f)
+    with open(testing_file, mode='rb') as f:
+        my_test = pickle.load(f)
+
+    x_train, y_train = my_train['features'][0:5000]/255.0, my_train['labels'][0:5000]
+    x_test, y_test = my_test['features']/255.0, my_test['labels']
+
+    b = np.zeros((len(y_train), 43))
+    b[np.arange(len(y_train)), y_train] = 1
+    y_train = b
+
+    b = np.zeros((len(y_test), 43))
+    b[np.arange(len(y_test)), y_test] = 1
+    y_test = b
+
+    if input.upper() == "TRAIN":
+        return x_train.astype(np.float32), y_train.astype(np.float32)
+    if input.upper() == "TEST":
+        return x_test.astype(np.float32), y_test.astype(np.float32)
+    else:
+        return None, None
+
 print("STEP 1: Get training data...")
 data = CIFAR10(train_start=train_start, train_end=train_end,
               test_start=test_start, test_end=test_end)
-dataset_size = data.x_train.shape[0]
-dataset_train = data.to_tensorflow()[0]
-dataset_train = dataset_train.map(
-     lambda x, y: (random_shift(random_horizontal_flip(x)), y), 4)
-dataset_train = dataset_train.batch(BATCH_SIZE)
-dataset_train = dataset_train.prefetch(16)
+
+#default load cifar10 image
 x_train, y_train = data.get_set('train')
 x_test, y_test = data.get_set('test')
+
+# load stop sign images
+sign_data = True
+if sign_data is True:
+    x_train, y_train = Signs("TRAIN")
+    x_test, y_test = Signs("TEST")
 
 img_rows, img_cols, nchannels = x_train.shape[1:4]
 nb_classes = y_train.shape[1]
