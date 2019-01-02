@@ -32,9 +32,9 @@ BACKPROP_THROUGH_ATTACK = False
 NB_FILTERS = 64
 config_args = {}
 train_start=0
-train_end=60000
+train_end=6000
 test_start=0
-test_end=10000
+test_end=1000
 fgsm_params = {
   'eps': 0.3,
   'clip_min': 0.,
@@ -105,10 +105,9 @@ if printimage is True:
         os.makedirs(directory)
     for pic in adv_image:
         if pic.shape[2] == 1:
-            io.imsave(directory +"/" + str(name_num) + '.png', pic[:,:,0])
+            io.imsave(directory +"/" + all_filename[name_num], pic[:,:,0])
         else:
-            io.imsave(directory +"/" + str(name_num) + '.png', pic)
+            io.imsave(directory +"/" + all_filename[name_num], pic)
         name_num = name_num + 1
 
 print("STEP 5: SUCESS. see picture at ", directory)
-
