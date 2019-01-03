@@ -4,7 +4,7 @@ This is a cleverhans based research project by zzhu and nlyu.
 
 Basically we transfrom normal pictures to malicious pictures.
 
-For example, in MNIST dataset a normal zero becomes under fgsm attack:
+For example, in MNIST dataset a normal zero becomes a zero that cannot be regonized by the previous ML model under fgsm attack:
 
 <img src="https://github.com/nlyu/Project_cleverhans/blob/master/source/zero_good.png" width="60"/>
 
